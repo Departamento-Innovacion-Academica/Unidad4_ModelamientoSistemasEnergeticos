@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tipos de simulación</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 18px 3%;
+    background: #FFFFFF;
+    color: #32152F;
+}
+
+/* INSTRUCCIÓN */
+
+.instruccion {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 28px;
+}
+
+.instruccion span {
+    background: #FFFFFF;
+    border: 1px solid #E1D0DF;
+    border-radius: 30px;
+    padding: 10px 20px;
+    color: #592B55;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(60,30,60,.08);
+}
+
+/* CONTENEDOR */
+
+.contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+/* TARJETAS */
+
+.tarjeta {
+    height: 350px;
+    perspective: 1200px;
+    cursor: pointer;
+    outline: none;
+}
+
+.tarjeta-interior {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .7s cubic-bezier(.2,.7,.2,1);
+}
+
+.tarjeta.volteada .tarjeta-interior {
+    transform: rotateY(180deg);
+}
+
+/* CARAS */
+
+.cara {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    overflow: hidden;
+}
+
+/* FRENTE MORADO */
+
+.frente {
+    background: #592B55;
+    color: #FFFFFF;
+    border: 1px solid #592B55;
+    box-shadow: 0 8px 20px rgba(89,43,85,.12);
+}
+
+.frente::before {
+    content: "";
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 50%;
+    right: -75px;
+    top: -65px;
+}
+
+.frente::after {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50%;
+    right: -30px;
+    top: -30px;
+}
+
+.numero {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #E5CDE2;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.frente h3 {
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1.4;
+    margin: 0;
+    color: #FFFFFF;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.indicador {
+    margin-top: 28px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,.35);
+    width: 100%;
+    font-size: 12px;
+    font-weight: 500;
+    color: #EADBE8;
+    position: relative;
+    z-index: 1;
+}
+
+/* RESPALDO BLANCO */
+
+.respaldo {
+    transform: rotateY(180deg);
+    background: #FFFFFF;
+    border: 2px solid #DCC8DA;
+    border-top: 9px solid #592B55;
+    box-shadow: 0 8px 20px rgba(60,30,60,.07);
+}
+
+.respaldo .numero {
+    color: #90618A;
+    margin-bottom: 15px;
+}
+
+.respaldo p {
+    font-size: 16px;
+    line-height: 1.85;
+    font-weight: 400;
+    color: #392638;
+    margin: 0;
+    text-align: left;
+}
+
+/* INTERACCIÓN */
+
+.tarjeta:hover {
+    filter: brightness(1.03);
+}
+
+.tarjeta:focus-visible {
+    outline: 3px solid #A77AA3;
+    outline-offset: 5px;
+    border-radius: 20px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 1000px) {
+    .contenedor {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tarjeta {
+        height: 320px;
+    }
+}
+
+@media(max-width: 650px) {
+    body {
+        padding: 15px 4%;
+    }
+
+    .contenedor {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .tarjeta {
+        height: 260px;
+    }
+
+    .cara {
+        padding: 25px;
+    }
+
+    .frente h3 {
+        font-size: 24px;
+    }
+
+    .respaldo p {
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    .instruccion span {
+        font-size: 11px;
+        text-align: center;
+    }
+}
+
+/* REDUCCIÓN DE MOVIMIENTO */
+
+@media(prefers-reduced-motion: reduce) {
+    .tarjeta-interior {
+        transition: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- INSTRUCCIÓN SUPERIOR DERECHA -->
+
+<div class="instruccion">
+    <span>ⓘ &nbsp; (Haga clic sobre cada concepto para ampliar la información.)</span>
+</div>
+
+<!-- TARJETAS INTERACTIVAS -->
+
+<div class="contenedor">
+
+    <!-- SIMULACIÓN ESTÁTICA -->
+
+    <div class="tarjeta" tabindex="0" role="button" aria-pressed="false">
+
+        <div class="tarjeta-interior">
+
+            <div class="cara frente">
+                <span class="numero">01</span>
+
+                <h3>Simulación estática</h3>
+
+                <div class="indicador">
+                    Haga clic para ampliar la información →
+                </div>
+            </div>
+
+            <div class="cara respaldo">
+                <span class="numero">SIMULACIÓN ESTÁTICA</span>
+
+                <p>Analiza el comportamiento del sistema en estado estable, donde todas las derivadas temporales son nulas. Incluye estudios de flujo de potencia, cortocircuito y análisis modal. Es apropiada para estudios de planificación y operación en régimen permanente.</p>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- SIMULACIÓN CUASI-ESTÁTICA -->
+
+    <div class="tarjeta" tabindex="0" role="button" aria-pressed="false">
+
+        <div class="tarjeta-interior">
+
+            <div class="cara frente">
+                <span class="numero">02</span>
+
+                <h3>Simulación Cuasi-estática</h3>
+
+                <div class="indicador">
+                    Haga clic para ampliar la información →
+                </div>
+            </div>
+
+            <div class="cara respaldo">
+                <span class="numero">SIMULACIÓN CUASI-ESTÁTICA</span>
+
+                <p>Considera variaciones lentas del sistema mediante una secuencia de estados estables. Es útil para analizar el impacto de la variabilidad renovable en escalas de tiempo de minutos a horas.</p>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- SIMULACIÓN DINÁMICA -->
+
+    <div class="tarjeta" tabindex="0" role="button" aria-pressed="false">
+
+        <div class="tarjeta-interior">
+
+            <div class="cara frente">
+                <span class="numero">03</span>
+
+                <h3>Simulación dinámica</h3>
+
+                <div class="indicador">
+                    Haga clic para ampliar la información →
+                </div>
+            </div>
+
+            <div class="cara respaldo">
+                <span class="numero">SIMULACIÓN DINÁMICA</span>
+
+                <p>Resuelve las ecuaciones diferenciales que gobiernan el comportamiento transitorio del sistema. Se subdivide en estabilidad transitoria (0.1 a 10 segundos), estabilidad de tensión (1 a 60 segundos) y estabilidad de frecuencia (segundos a minutos).</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+document.querySelectorAll('.tarjeta').forEach(tarjeta => {
+
+    function voltear() {
+
+        const estado = tarjeta.classList.toggle('volteada');
+
+        tarjeta.setAttribute('aria-pressed', estado);
+
+    }
+
+    tarjeta.addEventListener('click', voltear);
+
+    tarjeta.addEventListener('keydown', function(evento) {
+
+        if (evento.key === 'Enter' || evento.key === ' ') {
+
+            evento.preventDefault();
+
+            voltear();
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>

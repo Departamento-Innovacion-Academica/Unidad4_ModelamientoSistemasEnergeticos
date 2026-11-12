@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tipos de estabilidad eléctrica</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 20px 3%;
+    background: #FFFFFF;
+    color: #32152F;
+}
+
+/* INSTRUCCIÓN */
+
+.instruccion {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 25px;
+}
+
+.instruccion span {
+    background: #FFFFFF;
+    border: 1px solid #E1D0DF;
+    border-radius: 30px;
+    padding: 10px 20px;
+    color: #592B55;
+    font-size: 13px;
+    box-shadow: 0 4px 12px rgba(60,30,60,.08);
+}
+
+/* ACORDEÓN */
+
+.acordeon {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+/* ELEMENTOS */
+
+.acordeon-item {
+    background: #FFFFFF;
+    border: 2px solid #DCC8DA;
+    border-left: 12px solid #592B55;
+    border-radius: 17px;
+    overflow: hidden;
+    transition: box-shadow .3s ease, border-color .3s ease;
+}
+
+.acordeon-item:hover {
+    border-color: #A77AA3;
+    box-shadow: 0 6px 18px rgba(70,30,70,.08);
+}
+
+/* BOTÓN DEL ACORDEÓN */
+
+.acordeon-titulo {
+    width: 100%;
+    background: #FFFFFF;
+    border: none;
+    padding: 23px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    text-align: left;
+    cursor: pointer;
+    color: #32152F;
+}
+
+.acordeon-titulo h3 {
+    font-size: 23px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* FLECHA */
+
+.flecha {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+    border-radius: 50%;
+    background: #F0E5EF;
+    color: #592B55;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 19px;
+    transition: transform .3s ease, background .3s ease;
+}
+
+.acordeon-item.activo .flecha {
+    transform: rotate(180deg);
+    background: #592B55;
+    color: #FFFFFF;
+}
+
+/* CONTENIDO DESPLEGABLE */
+
+.acordeon-contenido {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .4s ease;
+}
+
+.acordeon-item.activo .acordeon-contenido {
+    grid-template-rows: 1fr;
+}
+
+.acordeon-interior {
+    overflow: hidden;
+}
+
+.acordeon-texto {
+    padding: 0 28px 25px;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.85;
+    color: #392638;
+    text-align: left;
+}
+
+.acordeon-texto p {
+    margin: 0 0 15px;
+}
+
+.acordeon-texto ul {
+    padding-left: 25px;
+    margin: 12px 0 0;
+}
+
+.acordeon-texto li {
+    padding-left: 5px;
+    margin-bottom: 10px;
+}
+
+.acordeon-texto li::marker {
+    color: #592B55;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 650px) {
+
+    body {
+        padding: 15px 4%;
+    }
+
+    .acordeon-titulo {
+        padding: 19px 18px;
+    }
+
+    .acordeon-titulo h3 {
+        font-size: 18px;
+    }
+
+    .acordeon-texto {
+        padding: 0 18px 20px;
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+    .flecha {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        font-size: 16px;
+    }
+
+    .instruccion span {
+        font-size: 11px;
+        text-align: center;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    .acordeon-contenido,
+    .flecha {
+        transition: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- INSTRUCCIÓN -->
+
+<div class="instruccion">
+    <span>ⓘ &nbsp; (Haga clic sobre cada concepto para ampliar la información.)</span>
+</div>
+
+<!-- ACORDEÓN -->
+
+<div class="acordeon">
+
+    <!-- ESTABILIDAD ANGULAR -->
+
+    <div class="acordeon-item">
+
+        <button class="acordeon-titulo"
+                aria-expanded="false">
+
+            <h3>Estabilidad angular</h3>
+
+            <span class="flecha">⌄</span>
+
+        </button>
+
+        <div class="acordeon-contenido">
+
+            <div class="acordeon-interior">
+
+                <div class="acordeon-texto">
+
+                    <p>Esta se refiere a la capacidad del sistema para mantener el sincronismo tras una perturbación. Se subdivide en dos escalas temporales:</p>
+
+                    <ul>
+
+                        <li>Transitoria (o de gran perturbación), que abarca el rango de aproximadamente 3 a 10 segundos post evento grave, como un cortocircuito. Durante este período, el sistema puede experimentar grandes oscilaciones del ángulo rotor–referencia debido a efectos no lineales.</li>
+
+                        <li>Pequeña señal, donde se analizan oscilaciones sostenidas de baja amplitud mediante modelado lineal alrededor del punto de operación.</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ESTABILIDAD DE TENSIÓN -->
+
+    <div class="acordeon-item">
+
+        <button class="acordeon-titulo"
+                aria-expanded="false">
+
+            <h3>Estabilidad de tensión</h3>
+
+            <span class="flecha">⌄</span>
+
+        </button>
+
+        <div class="acordeon-contenido">
+
+            <div class="acordeon-interior">
+
+                <div class="acordeon-texto">
+
+                    <p>Se refiere a la capacidad del sistema para mantener voltajes dentro de niveles seguros tras perturbaciones. Puede afectar tanto de forma rápida (segundos, como en cargas electrónicas o controladores HVDC) como a largo plazo (minutos, como en transformadores con cambio de tap o cargas térmicas) (Kundur, Balu, &amp; Lauby, 2004).</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ESTABILIDAD DE FRECUENCIA -->
+
+    <div class="acordeon-item">
+
+        <button class="acordeon-titulo"
+                aria-expanded="false">
+
+            <h3>Estabilidad de frecuencia</h3>
+
+            <span class="flecha">⌄</span>
+
+        </button>
+
+        <div class="acordeon-contenido">
+
+            <div class="acordeon-interior">
+
+                <div class="acordeon-texto">
+
+                    <p>Implica mantener la frecuencia nominal ante desequilibrios entre generación y demanda. A diferencia del resto, está vinculada al balance activo global del sistema y al aporte de inercia rotacional disponible.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+const elementos = document.querySelectorAll('.acordeon-item');
+
+elementos.forEach(elemento => {
+
+    const boton = elemento.querySelector('.acordeon-titulo');
+
+    boton.addEventListener('click', () => {
+
+        const estabaAbierto = elemento.classList.contains('activo');
+
+        // Cerrar los demás apartados
+        elementos.forEach(item => {
+
+            item.classList.remove('activo');
+
+            item.querySelector('.acordeon-titulo')
+                .setAttribute('aria-expanded', 'false');
+
+        });
+
+        // Abrir el seleccionado
+        if (!estabaAbierto) {
+
+            elemento.classList.add('activo');
+
+            boton.setAttribute('aria-expanded', 'true');
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>

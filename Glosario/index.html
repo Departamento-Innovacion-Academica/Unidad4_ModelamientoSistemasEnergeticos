@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glosario de sistemas eléctricos</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --morado: #592B55;
+    --morado-claro: #E4D2E3;
+    --fondo: #F8F5F8;
+    --texto: #30212F;
+    --rojo: #C03932;
+    --naranja: #A87912;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 32px 3.3%;
+    background: var(--fondo);
+    font-family: 'Poppins', sans-serif;
+    color: var(--texto);
+}
+
+/* Instrucción */
+
+.instruccion {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 32px;
+}
+
+.instruccion span {
+    background: white;
+    border: 1px solid var(--morado-claro);
+    border-radius: 30px;
+    padding: 12px 24px;
+    font-size: 14px;
+    box-shadow: 0 5px 15px rgba(60,30,60,.08);
+}
+
+/* Filtros */
+
+.filtros {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 44px;
+}
+
+.filtro {
+    padding: 12px 30px;
+    border: 2px solid var(--morado-claro);
+    border-radius: 35px;
+    background: white;
+    color: var(--morado);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.filtro:hover,
+.filtro.activo {
+    background: var(--morado);
+    color: white;
+    border-color: var(--morado);
+    box-shadow: 0 8px 18px rgba(70,30,70,.15);
+}
+
+/* Tarjetas */
+
+.contenedor {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px;
+}
+
+.tarjeta {
+    background: white;
+    border: 1px solid var(--morado-claro);
+    border-radius: 19px;
+    min-height: 98px;
+    padding: 22px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    cursor: pointer;
+    transition: .25s;
+    box-shadow: 0 4px 12px rgba(50,20,50,.025);
+}
+
+.tarjeta:hover {
+    transform: translateY(-3px);
+    border-color: var(--morado);
+    box-shadow: 0 8px 20px rgba(50,20,50,.09);
+}
+
+.tarjeta h3 {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.etiqueta {
+    flex-shrink: 0;
+    border-radius: 25px;
+    padding: 7px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .4px;
+}
+
+.renovable {
+    color: var(--morado);
+    background: #F0EAF0;
+    border: 1px solid #D8C8D7;
+}
+
+.no-renovable {
+    color: var(--rojo);
+    background: #FCEBE9;
+    border: 1px solid #F5C9C4;
+}
+
+.sistema {
+    color: var(--naranja);
+    background: #F8F0E3;
+    border: 1px solid #EFDDBB;
+}
+
+/* Modal */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(40,25,40,.67);
+    backdrop-filter: blur(7px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal.mostrar {
+    display: flex;
+}
+
+.modal-contenido {
+    background: white;
+    width: 100%;
+    max-width: 830px;
+    border-radius: 24px;
+    border-top: 8px solid var(--morado);
+    padding: 48px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,.22);
+    animation: aparecer .3s ease;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.cerrar {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    width: 43px;
+    height: 43px;
+    border: none;
+    border-radius: 50%;
+    background: #F0EAF0;
+    color: var(--morado);
+    font-size: 23px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cerrar:hover {
+    background: var(--morado);
+    color: white;
+}
+
+.modal h2 {
+    color: var(--morado);
+    font-size: 34px;
+    margin: 18px 55px 15px 0;
+    line-height: 1.3;
+}
+
+.linea {
+    height: 3px;
+    background: var(--morado-claro);
+    margin-bottom: 25px;
+}
+
+.descripcion {
+    font-size: 18px;
+    line-height: 1.9;
+    margin-bottom: 25px;
+}
+
+.referencia {
+    border-top: 1px solid var(--morado-claro);
+    padding-top: 18px;
+    color: #896C87;
+    font-size: 15px;
+    font-style: italic;
+}
+
+/* Adaptación móvil */
+
+@media (max-width: 750px) {
+    body {
+        padding: 22px 5%;
+    }
+
+    .contenedor {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .filtros {
+        gap: 9px;
+        margin-bottom: 28px;
+    }
+
+    .filtro {
+        font-size: 12px;
+        padding: 10px 16px;
+    }
+
+    .tarjeta {
+        padding: 20px;
+        min-height: 85px;
+    }
+
+    .tarjeta h3 {
+        font-size: 16px;
+    }
+
+    .etiqueta {
+        font-size: 9px;
+        padding: 6px 10px;
+    }
+
+    .modal-contenido {
+        padding: 30px 23px;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+
+    .modal h2 {
+        font-size: 25px;
+    }
+
+    .descripcion {
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .instruccion {
+        justify-content: center;
+    }
+
+    .instruccion span {
+        font-size: 11px;
+        text-align: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Instrucción -->
+<div class="instruccion">
+    <span>ⓘ &nbsp; (Haga clic sobre cada concepto para ampliar la información.)</span>
+</div>
+
+<!-- Filtros -->
+<div class="filtros">
+    <button class="filtro activo" data-filtro="todos">TODOS</button>
+    <button class="filtro" data-filtro="sistema">SISTEMAS Y VECTORES</button>
+</div>
+
+<!-- Tarjetas -->
+<div class="contenedor" id="contenedor"></div>
+
+<!-- Ventana modal -->
+<div class="modal" id="modal">
+    <div class="modal-contenido">
+        <button class="cerrar" id="cerrar" aria-label="Cerrar">&times;</button>
+        <h2 id="titulo"></h2>
+        <div class="linea"></div>
+        <p class="descripcion" id="descripcion"></p>
+        <div class="referencia" id="referencia"></div>
+    </div>
+</div>
+
+<script>
+
+// Información de los conceptos
+
+const conceptos = [
+
+{
+titulo: "Diagrama de impedancia",
+categoria: "sistema",
+etiqueta: "SISTEMA / VECTOR",
+descripcion: "Es una representación gráfica unifilar del sistema eléctrico en la que cada elemento se modela mediante su impedancia equivalente. Permite simplificar el análisis de los circuitos eléctricos y estudiar el comportamiento del sistema ante diferentes condiciones de operación.",
+referencia: "Grainger & Stevenson (2003)."
+},
+
+{
+titulo: "Efecto Ferranti",
+categoria: "sistema",
+etiqueta: "SISTEMA / VECTOR",
+descripcion: "Es el fenómeno que produce un aumento de tensión en el extremo receptor de una línea de transmisión larga, especialmente cuando opera en vacío o con una carga ligera. Se origina por los efectos de la capacitancia distribuida a lo largo de la línea.",
+referencia: "Porragas & Neri (2012)."
+},
+
+{
+titulo: "Estabilidad transitoria",
+categoria: "sistema",
+etiqueta: "SISTEMA / VECTOR",
+descripcion: "Es la capacidad de un sistema eléctrico de potencia para mantener el sincronismo después de experimentar una perturbación grande, como una falla eléctrica, la desconexión de una línea o la pérdida de generación.",
+referencia: "Kundur, Balu, & Lauby (2004)."
+},
+
+{
+titulo: "Impedancia característica (Zc)",
+categoria: "sistema",
+etiqueta: "SISTEMA / VECTOR",
+descripcion: "Es la relación entre la tensión y la corriente de una onda que se propaga por una línea de transmisión, cuando no existen reflexiones. Depende de los parámetros eléctricos distribuidos de la línea.",
+referencia: "Haginomori, Koshiduka, Arai, & Ikeda (2016)."
+},
+
+{
+titulo: "Impedancia porcentual (Z%)",
+categoria: "sistema",
+etiqueta: "SISTEMA / VECTOR",
+descripcion: "Es una medida que expresa, en porcentaje, la impedancia de un transformador respecto a sus valores nominales. Se relaciona con la caída de tensión que se presenta cuando el transformador opera bajo condiciones de carga nominal.",
+referencia: "Studyelectrical (2018)."
+},
+
+{
+titulo: "Límite térmico",
+categoria: "sistema",
+etiqueta: "SISTEMA / VECTOR",
+descripcion: "Es la máxima corriente eléctrica que puede transportar un conductor sin superar su temperatura máxima admisible. Este límite depende de las características del material, las condiciones ambientales y la capacidad de disipación del calor.",
+referencia: "IEEE SA (2023)."
+},
+
+{
+titulo: "Modelo dinámico",
+categoria: "sistema",
+etiqueta: "SISTEMA / VECTOR",
+descripcion: "Es una representación matemática de un sistema eléctrico que incorpora ecuaciones diferenciales para describir la evolución temporal de sus variables. Permite analizar su comportamiento durante cambios y perturbaciones.",
+referencia: "Anderson & Fouad (2003)."
+},
+
+{
+titulo: "Modelo estático",
+categoria: "sistema",
+etiqueta: "SISTEMA / VECTOR",
+descripcion: "Es una representación del comportamiento de un sistema eléctrico en condiciones de equilibrio, en la que las variables se consideran constantes en el tiempo. Se utiliza para analizar estados de operación estacionarios.",
+referencia: "Kundur, Balu, & Lauby (2004)."
+},
+
+{
+titulo: "Modelo π nominal",
+categoria: "sistema",
+etiqueta: "SISTEMA / VECTOR",
+descripcion: "Es un modelo equivalente utilizado para representar líneas de transmisión de longitud media. Incluye la impedancia serie concentrada en el centro y las admitancias en derivación (shunt) distribuidas en dos partes iguales en los extremos de la línea.",
+referencia: "Wadhwa (2012)."
+},
+
+{
+titulo: "Surge Impedance Loading (SIL)",
+categoria: "sistema",
+etiqueta: "SISTEMA / VECTOR",
+descripcion: "Es la potencia natural de una línea de transmisión a la que la potencia reactiva generada por su capacitancia se equilibra con la potencia reactiva absorbida por su inductancia. Se utiliza como referencia para evaluar la capacidad de transmisión de una línea.",
+referencia: "Duncan, Overbye, & Sarma (2016)."
+}
+
+];
+
+// Crear tarjetas
+
+const contenedor = document.getElementById("contenedor");
+
+function mostrarConceptos(filtro = "todos") {
+
+    contenedor.innerHTML = "";
+
+    const filtrados = conceptos.filter(c =>
+        filtro === "todos" || c.categoria === filtro
+    );
+
+    filtrados.forEach(concepto => {
+
+        const tarjeta = document.createElement("div");
+        tarjeta.className = "tarjeta";
+
+        tarjeta.innerHTML = `
+            <h3>${concepto.titulo}</h3>
+            <span class="etiqueta sistema">
+                ${concepto.etiqueta}
+            </span>
+        `;
+
+        tarjeta.addEventListener("click", () => {
+            abrirModal(concepto);
+        });
+
+        contenedor.appendChild(tarjeta);
+
+    });
+}
+
+// Abrir ventana
+
+function abrirModal(concepto) {
+
+    document.getElementById("titulo").textContent =
+        concepto.titulo;
+
+    document.getElementById("descripcion").textContent =
+        concepto.descripcion;
+
+    document.getElementById("referencia").textContent =
+        "Fuente: " + concepto.referencia;
+
+    document.getElementById("modal").classList.add("mostrar");
+
+}
+
+// Cerrar ventana
+
+function cerrarModal() {
+    document.getElementById("modal").classList.remove("mostrar");
+}
+
+document.getElementById("cerrar").addEventListener("click", cerrarModal);
+
+document.getElementById("modal").addEventListener("click", function(e) {
+    if (e.target === this) cerrarModal();
+});
+
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") cerrarModal();
+});
+
+// Filtros
+
+document.querySelectorAll(".filtro").forEach(boton => {
+
+    boton.addEventListener("click", () => {
+
+        document.querySelectorAll(".filtro").forEach(b =>
+            b.classList.remove("activo")
+        );
+
+        boton.classList.add("activo");
+
+        mostrarConceptos(boton.dataset.filtro);
+
+    });
+
+});
+
+// Cargar conceptos
+
+mostrarConceptos();
+
+</script>
+
+</body>
+</html>
