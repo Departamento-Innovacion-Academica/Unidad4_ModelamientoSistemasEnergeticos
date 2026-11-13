@@ -1,0 +1,703 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejercicios de repaso</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+#repaso-electrico {
+    font-family: 'Poppins', sans-serif;
+    color: #302431;
+    max-width: 850px;
+    width: 100%;
+    margin: 30px auto;
+    background: #f8f5f8;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+#repaso-electrico * {
+    box-sizing: border-box;
+}
+
+/* ENCABEZADO */
+#repaso-electrico .header {
+    background: #23001E;
+    color: white;
+    padding: 35px 25px;
+    text-align: center;
+}
+
+#repaso-electrico .header h2 {
+    margin: 0 0 10px;
+    font-size: 25px;
+    color: white;
+    text-align: center;
+}
+
+#repaso-electrico .header p {
+    margin: 0;
+    font-size: 14px;
+    color: #e4d3e1;
+}
+
+/* PROGRESO */
+#repaso-electrico .progress-area {
+    padding: 22px 30px 5px;
+}
+
+#repaso-electrico .progress-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #582A51;
+}
+
+#repaso-electrico .progress-bar {
+    height: 8px;
+    background: #e7dce6;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#repaso-electrico .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #582A51;
+    transition: width .3s;
+}
+
+/* CONTENIDO */
+#repaso-electrico .content {
+    padding: 25px 30px 35px;
+}
+
+/* PREGUNTAS */
+#repaso-electrico .question {
+    display: none;
+    background: white;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px rgba(35,0,30,.07);
+    text-align: center;
+}
+
+#repaso-electrico .question.active {
+    display: block;
+}
+
+#repaso-electrico .tag {
+    display: inline-block;
+    background: #f0e5ef;
+    color: #582A51;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 7px 15px;
+    border-radius: 20px;
+    margin: 0 auto 22px;
+    letter-spacing: .5px;
+}
+
+#repaso-electrico h3 {
+    font-size: 17px;
+    line-height: 1.8;
+    margin: 0 auto 25px;
+    color: #23001E;
+    max-width: 680px;
+    text-align: center;
+}
+
+/* OPCIONES */
+#repaso-electrico .option {
+    display: block;
+    width: 100%;
+    max-width: 680px;
+    padding: 15px 18px;
+    margin: 12px auto;
+    border: 1px solid #e3d8e2;
+    background: white;
+    border-radius: 10px;
+    text-align: left;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #403342;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+#repaso-electrico .option:hover:not(:disabled) {
+    border-color: #582A51;
+    background: #f8f1f7;
+    transform: translateY(-1px);
+}
+
+#repaso-electrico .option:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+#repaso-electrico .option.correct {
+    border: 2px solid #249765;
+    background: #eaf8f0;
+    color: #176c46;
+}
+
+#repaso-electrico .option.incorrect {
+    border: 2px solid #d9534f;
+    background: #fff0ef;
+    color: #a62e2a;
+}
+
+/* VERDADERO Y FALSO */
+#repaso-electrico .tf-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#repaso-electrico .tf-container .option {
+    text-align: center;
+    font-weight: 600;
+}
+
+/* REALIMENTACIÓN */
+#repaso-electrico .feedback {
+    display: none;
+    max-width: 680px;
+    padding: 18px;
+    margin: 22px auto 0;
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+#repaso-electrico .feedback.show {
+    display: block;
+}
+
+#repaso-electrico .feedback.good {
+    background: #eaf8f0;
+    color: #176c46;
+}
+
+#repaso-electrico .feedback.bad {
+    background: #fff0ef;
+    color: #a62e2a;
+}
+
+/* NAVEGACIÓN */
+#repaso-electrico .navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 680px;
+    margin: 25px auto 0;
+    gap: 10px;
+}
+
+#repaso-electrico .nav-btn {
+    border: none;
+    border-radius: 9px;
+    padding: 13px 23px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+#repaso-electrico .next {
+    background: #582A51;
+    color: white;
+    margin-left: auto;
+}
+
+#repaso-electrico .next:hover:not(:disabled) {
+    background: #23001E;
+}
+
+#repaso-electrico .next:disabled {
+    background: #b9a8b7;
+    cursor: not-allowed;
+}
+
+#repaso-electrico .previous {
+    background: #e9e0e8;
+    color: #582A51;
+}
+
+#repaso-electrico .previous:hover:not(:disabled) {
+    background: #ded0dc;
+}
+
+/* RESULTADOS */
+#repaso-electrico .result {
+    display: none;
+    background: white;
+    border-radius: 16px;
+    padding: 45px 25px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(35,0,30,.07);
+}
+
+#repaso-electrico .result h2 {
+    color: #23001E;
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+#repaso-electrico .result p {
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+#repaso-electrico .score {
+    font-size: 48px;
+    font-weight: 800;
+    color: #582A51;
+    margin: 20px 0;
+}
+
+#repaso-electrico .restart {
+    background: #23001E;
+    color: white;
+    margin-top: 20px;
+}
+
+#repaso-electrico .restart:hover {
+    background: #582A51;
+}
+
+#repaso-electrico .small-text {
+    font-size: 12px;
+    color: #718096;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px) {
+    #repaso-electrico .header {
+        padding: 28px 15px;
+    }
+
+    #repaso-electrico .header h2 {
+        font-size: 21px;
+    }
+
+    #repaso-electrico .content {
+        padding: 18px 14px 25px;
+    }
+
+    #repaso-electrico .question {
+        padding: 22px 15px;
+    }
+
+    #repaso-electrico .tf-container {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    #repaso-electrico .progress-area {
+        padding: 20px 18px 5px;
+    }
+
+    #repaso-electrico .option {
+        font-size: 12px;
+    }
+
+    #repaso-electrico .navigation {
+        padding: 0 5px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="repaso-electrico">
+
+    <!-- ENCABEZADO -->
+    <div class="header">
+        <h2>Ejercicios de repaso</h2>
+        <p>Sistemas eléctricos de potencia</p>
+        <p>¡Pon a prueba tus conocimientos!</p>
+    </div>
+
+    <!-- BARRA DE PROGRESO -->
+    <div class="progress-area">
+        <div class="progress-info">
+            <span id="question-counter">Pregunta 1 de 4</span>
+            <span id="progress-percent">0% completado</span>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- PREGUNTA 1 -->
+        <div class="question active" data-answer="b">
+
+            <span class="tag">SELECCIÓN MÚLTIPLE</span>
+
+            <h3>
+                1. ¿Cuál es la principal ventaja de utilizar modelos matemáticos en el análisis de sistemas eléctricos de potencia?
+            </h3>
+
+            <button class="option" data-value="a">
+                a) Reducir el consumo energético del sistema.
+            </button>
+
+            <button class="option" data-value="b">
+                b) Representar de forma estructurada el comportamiento de los componentes y analizar su desempeño ante diversas condiciones de operación.
+            </button>
+
+            <button class="option" data-value="c">
+                c) Garantizar la generación exclusiva de energía renovable.
+            </button>
+
+            <button class="option" data-value="d">
+                d) Evitar el uso de simulaciones computacionales.
+            </button>
+
+            <div class="feedback">
+                <strong>Realimentación:</strong>
+                El modelamiento de sistemas eléctricos permite comprender la interacción entre elementos eléctricos, mecánicos y de control, evaluar fenómenos permanentes y transitorios, y optimizar la operación del sistema (Kundur, Balu y Lauby, 2004).
+            </div>
+        </div>
+
+        <!-- PREGUNTA 2 -->
+        <div class="question" data-answer="v">
+
+            <span class="tag">VERDADERO O FALSO</span>
+
+            <h3>
+                2. Los modelos dinámicos en sistemas eléctricos permiten analizar la evolución temporal de las variables del sistema mediante ecuaciones diferenciales.
+            </h3>
+
+            <div class="tf-container">
+                <button class="option" data-value="v">
+                    VERDADERO
+                </button>
+
+                <button class="option" data-value="f">
+                    FALSO
+                </button>
+            </div>
+
+            <div class="feedback">
+                <strong>Realimentación:</strong>
+                Los modelos dinámicos incorporan ecuaciones diferenciales que describen el comportamiento transitorio del sistema, siendo esenciales para estudios de estabilidad y análisis de perturbaciones (Anderson y Fouad, 2003).
+            </div>
+        </div>
+
+        <!-- PREGUNTA 3 -->
+        <div class="question" data-answer="f">
+
+            <span class="tag">VERDADERO O FALSO</span>
+
+            <h3>
+                3. La integración de energías renovables en un sistema eléctrico no afecta la dirección del flujo de potencia en las líneas de transmisión.
+            </h3>
+
+            <div class="tf-container">
+                <button class="option" data-value="v">
+                    VERDADERO
+                </button>
+
+                <button class="option" data-value="f">
+                    FALSO
+                </button>
+            </div>
+
+            <div class="feedback">
+                <strong>Realimentación:</strong>
+                La generación renovable distribuida puede provocar bidireccionalidad en los flujos de potencia, invirtiendo la dirección cuando la generación local excede la demanda (IEA-PVPS, 2024).
+            </div>
+        </div>
+
+        <!-- PREGUNTA 4 -->
+        <div class="question" data-answer="c">
+
+            <span class="tag">SELECCIÓN MÚLTIPLE</span>
+
+            <h3>
+                4. ¿Cuál de los siguientes parámetros distribuidos NO forma parte de la caracterización eléctrica de una línea de transmisión?
+            </h3>
+
+            <button class="option" data-value="a">
+                a) Resistencia (R).
+            </button>
+
+            <button class="option" data-value="b">
+                b) Inductancia (L).
+            </button>
+
+            <button class="option" data-value="c">
+                c) Frecuencia de oscilación (F).
+            </button>
+
+            <button class="option" data-value="d">
+                d) Capacitancia (C).
+            </button>
+
+            <div class="feedback">
+                <strong>Realimentación:</strong>
+                Las líneas de transmisión se caracterizan por resistencia (R), inductancia (L), capacitancia (C) y conductancia (G) por unidad de longitud, los cuales determinan la relación entre tensión, corriente y pérdidas (Porragas y Neri, 2012).
+            </div>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="result" id="final-result">
+
+            <h2>¡Actividad finalizada!</h2>
+
+            <p>Has completado los ejercicios de repaso.</p>
+
+            <div class="score" id="final-score">0/4</div>
+
+            <p id="result-message"></p>
+
+            <p class="small-text" id="result-detail"></p>
+
+            <button class="nav-btn restart" onclick="restartQuiz()">
+                Volver a intentarlo
+            </button>
+
+        </div>
+
+        <!-- BOTONES DE NAVEGACIÓN -->
+        <div class="navigation" id="navigation">
+
+            <button class="nav-btn previous"
+                    id="prev-btn"
+                    onclick="changeQuestion(-1)"
+                    disabled>
+                Anterior
+            </button>
+
+            <button class="nav-btn next"
+                    id="next-btn"
+                    onclick="changeQuestion(1)"
+                    disabled>
+                Siguiente
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+(function() {
+
+    const root = document.getElementById('repaso-electrico');
+    const questions = Array.from(root.querySelectorAll('.question'));
+    const total = questions.length;
+
+    let current = 0;
+    let answers = new Array(total).fill(null);
+    let completed = new Array(total).fill(false);
+
+    const counter = root.querySelector('#question-counter');
+    const percent = root.querySelector('#progress-percent');
+    const fill = root.querySelector('#progress-fill');
+    const prev = root.querySelector('#prev-btn');
+    const next = root.querySelector('#next-btn');
+    const navigation = root.querySelector('#navigation');
+    const result = root.querySelector('#final-result');
+
+    function update() {
+
+        questions.forEach((q, i) => {
+            q.classList.toggle('active', i === current);
+        });
+
+        counter.textContent =
+            `Pregunta ${current + 1} de ${total}`;
+
+        const progress = Math.round(
+            (completed.filter(Boolean).length / total) * 100
+        );
+
+        percent.textContent = progress + '% completado';
+        fill.style.width = progress + '%';
+
+        prev.disabled = current === 0;
+        next.disabled = !completed[current];
+
+        next.textContent =
+            current === total - 1 ? 'Ver resultados' : 'Siguiente';
+    }
+
+    function selectAnswer(button) {
+
+        const q = questions[current];
+
+        if (completed[current]) return;
+
+        const selected = button.dataset.value;
+        const correct = q.dataset.answer;
+
+        answers[current] = selected;
+        completed[current] = true;
+
+        q.querySelectorAll('.option').forEach(option => {
+
+            option.disabled = true;
+
+            if (option.dataset.value === correct) {
+                option.classList.add('correct');
+            } else if (option === button) {
+                option.classList.add('incorrect');
+            }
+
+        });
+
+        const feedback = q.querySelector('.feedback');
+        const isCorrect = selected === correct;
+
+        const originalFeedback = feedback.innerHTML;
+
+        feedback.classList.add(
+            'show',
+            isCorrect ? 'good' : 'bad'
+        );
+
+        feedback.innerHTML =
+            (isCorrect
+                ? '<strong>✓ ¡Respuesta correcta!</strong><br>'
+                : '<strong>✗ Respuesta incorrecta.</strong> La respuesta correcta es ' +
+                  correct.toUpperCase() + '.<br>'
+            ) + originalFeedback;
+
+        update();
+    }
+
+    questions.forEach((q, index) => {
+
+        q.querySelectorAll('.option').forEach(button => {
+
+            button.addEventListener('click', () => {
+
+                if (index === current) {
+                    selectAnswer(button);
+                }
+
+            });
+
+        });
+
+    });
+
+    window.changeQuestion = function(direction) {
+
+        if (direction === 1 && current === total - 1) {
+            showResults();
+            return;
+        }
+
+        current += direction;
+        update();
+    };
+
+    function showResults() {
+
+        const score = answers.filter((answer, i) =>
+            answer === questions[i].dataset.answer
+        ).length;
+
+        questions.forEach(q => {
+            q.style.display = 'none';
+        });
+
+        navigation.style.display = 'none';
+        root.querySelector('.progress-area').style.display = 'none';
+        result.style.display = 'block';
+
+        root.querySelector('#final-score').textContent =
+            score + '/' + total;
+
+        let message = '';
+
+        if (score === 4) {
+            message = '¡Excelente trabajo! Dominas los conceptos evaluados.';
+        } else if (score >= 3) {
+            message = '¡Muy buen trabajo! Tienes una buena comprensión de los temas.';
+        } else if (score >= 2) {
+            message = 'Vas por buen camino. Te recomendamos repasar algunos conceptos.';
+        } else {
+            message = 'Te invitamos a revisar nuevamente el material de estudio y volver a intentarlo.';
+        }
+
+        root.querySelector('#result-message').textContent = message;
+
+        root.querySelector('#result-detail').textContent =
+            'Respuestas correctas: ' + score +
+            ' | Respuestas incorrectas: ' + (total - score);
+    }
+
+    window.restartQuiz = function() {
+
+        current = 0;
+        answers = new Array(total).fill(null);
+        completed = new Array(total).fill(false);
+
+        questions.forEach(q => {
+
+            q.style.display = '';
+
+            q.querySelectorAll('.option').forEach(option => {
+
+                option.disabled = false;
+
+                option.classList.remove(
+                    'correct',
+                    'incorrect'
+                );
+
+            });
+
+            const feedback = q.querySelector('.feedback');
+
+            feedback.className = 'feedback';
+
+            feedback.innerHTML = feedback.innerHTML
+                .replace(
+                    /^<strong>✓ ¡Respuesta correcta!<\/strong><br>/,
+                    ''
+                )
+                .replace(
+                    /^<strong>✗ Respuesta incorrecta\.<\/strong>.*?<br>/,
+                    ''
+                );
+
+        });
+
+        result.style.display = 'none';
+        navigation.style.display = 'flex';
+
+        root.querySelector('.progress-area').style.display = '';
+
+        update();
+    };
+
+    update();
+
+})();
+</script>
+
+</body>
+</html>
